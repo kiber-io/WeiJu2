@@ -18,6 +18,7 @@ import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.topjohnwu.superuser.Shell;
 
 import io.ikws4.weiju.R;
+import io.ikws4.weiju.utils.IOnBackPressed;
 
 public class MainActivity extends AppCompatActivity {
     public static final int FRAGMENT_NORMAL = 0;
@@ -136,6 +137,14 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(fragment.isDisplayHomeAsUp());
             getSupportActionBar().setTitle(fragment.getFragmentTitle());
             getSupportActionBar().setSubtitle(fragment.getFragmentSubtitle());
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        if (!(fragment instanceof IOnBackPressed) || !((IOnBackPressed) fragment).onBackPressed()) {
+            super.onBackPressed();
         }
     }
 }
